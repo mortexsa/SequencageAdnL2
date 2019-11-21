@@ -1,12 +1,12 @@
 #ifndef __DISTANCE_H
 #define __DISTANCE_H
 
-struct distance{
+struct Distance{
 	char *sequence;
 	int distance;
 
 };
-typedef struct distance DISTANCE;
+typedef struct Distance DISTANCE;
 
 
 #endif

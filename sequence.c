@@ -48,18 +48,13 @@ void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
 
 	float tableau[5][5] = {{Z, D, U, D, F}, {D, Z, D, U, F}, {U, D, Z, D, F}, {D, U, D, Z, F}, {F, F, F, F, Z}};
 
-	lire.sequence = malloc(lire.taille * sizeof(char));
-	lire2.sequence = malloc(lire2.taille * sizeof(char));
-
-	strcmp(lire.sequence, lire2.sequence);
-
-	int max;
-	if(lire.taille > lire2.taille)
-		max = lire.taille;
+	int min;
+	if(lire.taille < lire2.taille)
+		min = lire.taille;
 	else
-		max = lire2.taille;
+		min = lire2.taille;
 
-	for(int cpt = 0; cpt<max; cpt++){
+	for(int cpt = 0; cpt<min; cpt++){
 
 		printf("meow: %f\n", tableau[lire.sequence[cpt]][lire2.sequence[cpt]]);
 	}
