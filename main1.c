@@ -3,7 +3,10 @@
 
 int main(){
 
-	calcul_distances("sequences_ADN/seq01.txt", "sequences_ADN/seq03.txt");
+	SEQUENCE Lire = lire_fichier("sequences_ADN/seq01.txt");
+	SEQUENCE Lire2 = lire_fichier("sequences_ADN/seq03.txt");
+
+	calcul_distances(Lire,Lire2);
 
 	return 0;
 }
