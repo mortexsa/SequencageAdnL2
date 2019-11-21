@@ -3,8 +3,7 @@
 
 int main(){
 
-	SEQUENCE s2 = lire_fichier("sequences_ADN/seq03.txt");
-	printf("%s\n", s2.sequence);
+	calcul_distances("sequences_ADN/seq01.txt", "sequences_ADN/seq03.txt");
 
 	return 0;
 }
