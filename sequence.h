@@ -8,6 +8,7 @@ struct Sequence{
 typedef struct Sequence SEQUENCE;
 
 SEQUENCE lire_fichier(char *fichier);
+int valeur(SEQUENCE lire, int truc);
 void calcul_distances(SEQUENCE lire, SEQUENCE lire2);
 
 #endif

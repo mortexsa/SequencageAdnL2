@@ -38,40 +38,41 @@ SEQUENCE lire_fichier(char *fichier)
 	return seq;
 }
 
+int valeur(SEQUENCE truc, int cpt){ //Fonction pour renvoyer une valeur selon le char trouvé
+	int zero = 0, one = 1, two = 2, three = 3, four = 4;
+	if(truc.sequence[cpt] == 'A')
+		return zero;
+	if(truc.sequence[cpt] == 'C')
+		return one;
+	if(truc.sequence[cpt] == 'G')
+		return two;
+	if(truc.sequence[cpt] == 'T')
+		return three;
+}
+
 void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
 {
-	
-	enum InitSeq {A = 0, C = 1, G = 2, T = 3, Vide = 4};
-	enum InitContenu {Z = 0, U = 1, D = 2};
+	int tableau[4][4] = {{0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0}}; //Tableau stockant les valeurs possibles de distances
 
-	const float F = 1.5;
-
-	float tableau[5][5] = {{Z, D, U, D, F}, {D, Z, D, U, F}, {U, D, Z, D, F}, {D, U, D, Z, F}, {F, F, F, F, Z}};
-
-	int min;
-	if(lire.taille < lire2.taille)
+	int min, max;
+	if(lire.taille < lire2.taille){
 		min = lire.taille;
-	else
-		min = lire2.taille;
-
-	for(int cpt = 0; cpt<min; cpt++){
-
-		printf("meow: %f\n", tableau[lire.sequence[cpt]][lire2.sequence[cpt]]);
+		max = lire2.taille;
 	}
-
-
-
-
-
-
-	//a toi de voir ce que tu veut rajouter ici, ton while est useless mon frere
-
-	//utilise %f pour afficher les float, et pour comparer deux sequence, tu doit strcmp les deuc chaine,
-	//donc lire.sequence et lire2.sequence un truc comme ca, j'ai pas regarder ta structure
+	else{
+		min = lire2.taille;
+		max = lire.taille; //Chaines min et max
+	}
 	
+	float dist_blanc = (max - min)*1.5; //Calcul distance avec blanc
 
+	float DF = 0;
+	for(int cpt = 0; cpt<min; cpt++){
+		printf("meow: %d\n", tableau[valeur(lire, cpt)][valeur(lire2, cpt)]); //Distance entre chaque caractères
+		DF += tableau[valeur(lire, cpt)][valeur(lire2, cpt)];
+	}
+	DF += dist_blanc;
+	printf("meow blanc: %f\n", dist_blanc);
+	printf("meow final: %f\n", DF); //Distance finale
 
-	/*while(strcmp(fichier1, fichier2) == 0){
-		printf("C'est: %f\n", tableau[A][A]);
-	}*/
 }
