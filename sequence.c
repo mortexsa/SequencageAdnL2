@@ -91,7 +91,7 @@ int min(int a, int b, int c){
 		return c;
 }
 
-void calcul_distances2(SEQUENCE lire, SEQUENCE lire2){
+/*void calcul_distances2(SEQUENCE lire, SEQUENCE lire2){
 
 	int tableau[4][4] = {{0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0}};
 	printf("meow: %d\n", tableau[valeur(lire, lire.taille)][valeur(lire2, lire2.taille)]);
@@ -106,4 +106,27 @@ void calcul_distances2(SEQUENCE lire, SEQUENCE lire2){
 			calcul_distances2(lire, lire2) + f,
 			calcul_distances2(lire, lire2) + f);
 
+}*/
+
+int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouvé
+	if(t == 'A')
+		return 0;
+	if(t == 'C')
+		return 1;
+	if(t == 'G')
+		return 2;
+	if(t == 'T')
+		return 3;
+	else
+		return 4;
+}
+
+float calcul_prov(char * v, char * w, int i, int j) {
+	float tableau[5][5] = {{0, 2, 1, 2, 1.5}, {2, 0, 2, 1, 1.5}, {1, 2, 0, 2, 1.5}, {2, 1, 2, 0, 1.5}};
+	if(i<=0 && j<=0) return 0;
+	return min(
+			calcul_prov(v,w,i-1,j-1) + tableau[transforme(v[i])][transforme(w[j])],
+			calcul_prov(v,w,i,j-1) + tableau[transforme(v[i])][4],
+			calcul_prov(v,w,i-1,j) + tableau[4][transforme(w[j])]
+			);
 }
