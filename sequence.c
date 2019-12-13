@@ -3,6 +3,7 @@
 #include <string.h>
 #include "sequence.h"
 
+float DF;
 
 SEQUENCE lire_fichier(char *fichier)
 {
@@ -48,6 +49,8 @@ int valeur(SEQUENCE truc, int cpt){ //Fonction pour renvoyer une valeur selon le
 		return two;
 	if(truc.sequence[cpt] == 'T')
 		return three;
+	else
+		return four;
 }
 
 void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
@@ -66,13 +69,41 @@ void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
 	
 	float dist_blanc = (max - min)*1.5; //Calcul distance avec blanc
 
-	float DF = 0;
+	DF = 0;
 	for(int cpt = 0; cpt<min; cpt++){
 		printf("meow: %d\n", tableau[valeur(lire, cpt)][valeur(lire2, cpt)]); //Distance entre chaque caractères
 		DF += tableau[valeur(lire, cpt)][valeur(lire2, cpt)];
 	}
 	DF += dist_blanc;
 	printf("meow blanc: %f\n", dist_blanc);
-	printf("meow final: %f\n", DF); //Distance finale
+	printf("meow final: %f\n", DF); //Distance finale première méthode
+
+}
+
+int min(int a, int b, int c){
+	if(a==b && a==c)
+		return a;
+	if(a<b && a<c)
+		return a;
+	if(b<a && b<c)
+		return b;
+	else
+		return c;
+}
+
+void calcul_distances2(SEQUENCE lire, SEQUENCE lire2){
+
+	int tableau[4][4] = {{0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0}};
+	printf("meow: %d\n", tableau[valeur(lire, lire.taille)][valeur(lire2, lire2.taille)]);
+	float distance_rec;
+	float f = 1.5;
+
+	if(distance_rec < DF){
+		return distance_rec;
+	}
+	else
+		return min(calcul_distances2(lire, lire2) + tableau[valeur(lire, lire.taille)][valeur(lire2, lire2.taille)],
+			calcul_distances2(lire, lire2) + f,
+			calcul_distances2(lire, lire2) + f);
 
 }
