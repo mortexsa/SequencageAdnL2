@@ -19,9 +19,10 @@ SEQUENCE lire_fichier(char *fichier)
 
 	while((c = fgetc(F)) != EOF)
 	{
-		seq.taille += 1; //Compteur de la taille de la chaine de caractère
+		if(c != '\n'){
+			seq.taille += 1; //Compteur de la taille de la chaine de caractère
+		}
 	}
-	
 	seq.sequence = malloc(seq.taille * sizeof(char) + 1);
 	
 	fseek(F,0,SEEK_SET);
@@ -90,6 +91,16 @@ int min(int a, int b, int c){
 	else
 		return c;
 }
+float min2(float a, float b, float c){
+	if(a==b && a==c)
+		return a;
+	if(a<b && a<c)
+		return a;
+	if(b<a && b<c)
+		return b;
+	else
+		return c;
+}
 
 /*void calcul_distances2(SEQUENCE lire, SEQUENCE lire2){
 
@@ -121,12 +132,46 @@ int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouv�
 		return 4;
 }
 
-float calcul_prov(char * v, char * w, int i, int j) {
-	float tableau[5][5] = {{0, 2, 1, 2, 1.5}, {2, 0, 2, 1, 1.5}, {1, 2, 0, 2, 1.5}, {2, 1, 2, 0, 1.5}};
-	if(i<=0 && j<=0) return 0;
-	return min(
-			calcul_prov(v,w,i-1,j-1) + tableau[transforme(v[i])][transforme(w[j])],
-			calcul_prov(v,w,i,j-1) + tableau[transforme(v[i])][4],
-			calcul_prov(v,w,i-1,j) + tableau[4][transforme(w[j])]
-			);
+float calcul_prov(char * v, char * w, int i, int j, float tableau[5][5]) {
+	
+
+	if(i<0 || j<0)
+		return 0;
+
+	if((i == 0 && j == 0))
+		return tableau[transforme(v[i])][transforme(w[j])];
+	if(i == 1 && j == 0)
+		return calcul_prov(v,w,i-1,j,tableau) + tableau[4][transforme(w[j])];
+	if(i == 0 && j == 1)
+		return calcul_prov(v,w,i,j-1,tableau) + tableau[transforme(v[i])][4];
+		
+
+	return min2(
+				calcul_prov(v,w,i-1,j-1,tableau) + tableau[transforme(v[i])][transforme(w[j])],
+				calcul_prov(v,w,i,j-1,tableau) + tableau[transforme(v[i])][4],
+				calcul_prov(v,w,i-1,j,tableau) + tableau[4][transforme(w[j])]
+				);
+		
+	
+}
+
+//d'apres les mesure de performance, utiliser directement des nombres 
+//sans passer par le transforme, accelere de 43% l'execution
+float calcul_test(int * v, int * w, int i, int j, float tableau[5][5]) {
+	if(i<0 || j<0)
+		return 0;
+
+	if((i == 0 && j == 0))
+		return tableau[v[i]][w[j]];
+	if(i == 1 && j == 0)
+		return calcul_test(v,w,i-1,j,tableau) + tableau[4][w[j]];
+	if(i == 0 && j == 1)
+		return calcul_test(v,w,i,j-1,tableau) + tableau[v[i]][4];
+		
+
+	return min2(
+				calcul_test(v,w,i-1,j-1,tableau) + tableau[v[i]][w[j]],
+				calcul_test(v,w,i,j-1,tableau) + tableau[v[i]][4],
+				calcul_test(v,w,i-1,j,tableau) + tableau[4][w[j]]
+				);
 }
