@@ -5,6 +5,20 @@
 
 float DF;
 
+int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouvé
+	if(t == 'A')
+		return 0;
+	if(t == 'C')
+		return 1;
+	if(t == 'G')
+		return 2;
+	if(t == 'T')
+		return 3;
+	else
+		return 4;
+}
+
+
 SEQUENCE lire_fichier(char *fichier)
 {
 	SEQUENCE seq;
@@ -24,6 +38,7 @@ SEQUENCE lire_fichier(char *fichier)
 		}
 	}
 	seq.sequence = malloc(seq.taille * sizeof(char) + 1);
+	seq.numerique = malloc(seq.taille * sizeof(int) + 1);
 	
 	fseek(F,0,SEEK_SET);
 
@@ -32,6 +47,7 @@ SEQUENCE lire_fichier(char *fichier)
 	{
 		if(c != '\n'){
 			seq.sequence[cpt] = c;
+			seq.numerique[cpt] = transforme(seq.sequence[cpt]);
 			cpt++; //Lecture des caractères
 		}
 	}
@@ -119,21 +135,8 @@ float min2(float a, float b, float c){
 
 }*/
 
-int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouvé
-	if(t == 'A')
-		return 0;
-	if(t == 'C')
-		return 1;
-	if(t == 'G')
-		return 2;
-	if(t == 'T')
-		return 3;
-	else
-		return 4;
-}
 
 float calcul_prov(char * v, char * w, int i, int j, float tableau[5][5]) {
-	
 
 	if(i<0 || j<0)
 		return 0;
@@ -157,21 +160,26 @@ float calcul_prov(char * v, char * w, int i, int j, float tableau[5][5]) {
 
 //d'apres les mesure de performance, utiliser directement des nombres 
 //sans passer par le transforme, accelere de 43% l'execution
-float calcul_test(int * v, int * w, int i, int j, float tableau[5][5]) {
+float calcul_test(int * v, int * w, int i, int j, float tableau[5][5], float ** stick) {
 	if(i<0 || j<0)
 		return 0;
 
-	if((i == 0 && j == 0))
-		return tableau[v[i]][w[j]];
-	if(i == 1 && j == 0)
-		return calcul_test(v,w,i-1,j,tableau) + tableau[4][w[j]];
-	if(i == 0 && j == 1)
-		return calcul_test(v,w,i,j-1,tableau) + tableau[v[i]][4];
-		
+	if(stick[i][j] != 0){
+		return stick[i][j];
+	}
 
-	return min2(
-				calcul_test(v,w,i-1,j-1,tableau) + tableau[v[i]][w[j]],
-				calcul_test(v,w,i,j-1,tableau) + tableau[v[i]][4],
-				calcul_test(v,w,i-1,j,tableau) + tableau[4][w[j]]
+	if((i == 0 && j == 0))
+		stick[i][j] = tableau[v[i]][w[j]];
+	else if(i == 1 && j == 0)
+		stick[i][j] = calcul_test(v,w,i-1,j,tableau,stick) + tableau[4][w[j]];
+	else if(i == 0 && j == 1)
+		stick[i][j] = calcul_test(v,w,i,j-1,tableau,stick) + tableau[v[i]][4];
+	else {
+		stick[i][j] = min2(
+				calcul_test(v,w,i-1,j-1,tableau,stick) + tableau[v[i]][w[j]],
+				calcul_test(v,w,i,j-1,tableau,stick) + tableau[v[i]][4],
+				calcul_test(v,w,i-1,j,tableau,stick) + tableau[4][w[j]]
 				);
+	}
+	return stick[i][j];
 }

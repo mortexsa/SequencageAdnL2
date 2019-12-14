@@ -3,6 +3,7 @@
 
 struct Sequence{
 	char *sequence;
+	int *numerique;
 	int taille;
 };
 typedef struct Sequence SEQUENCE;
@@ -15,6 +16,6 @@ float min2(float a, float b, float c);
 void calcul_distances2(SEQUENCE lire, SEQUENCE lire2);
 int transforme(char t);
 float calcul_prov(char * v, char * w, int i, int j,float tableau[5][5]);
-float calcul_test(int * v, int * w, int i, int j, float tableau[5][5]);
+float calcul_test(int * v, int * w, int i, int j, float tableau[5][5], float ** stick);
 
 #endif
