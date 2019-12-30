@@ -7,5 +7,7 @@ struct Distance{
 };
 typedef struct Distance DISTANCE;
 
+void Recherche_fichiers(char *name);
+void comparaison();
 
 #endif
