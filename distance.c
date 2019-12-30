@@ -44,6 +44,7 @@ void comparaison(){
 	for(a = 0; a < 20; a++){
 		lire = lire_fichier(nom[a]);
 		lire.sequence[lire.taille] = '\0';
+		stick = (float**) malloc(lire.taille * sizeof (float*) + 1);
 
 		for(b = 0; b < 20; b++){
 			lire2 = lire_fichier(nom[b]);

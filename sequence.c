@@ -131,7 +131,7 @@ float calcul_recursive_dist(int * v, int * w, int i, int j, float tableau[5][5],
 }
 
 void allocation(SEQUENCE lire, SEQUENCE lire2){
-	float **stick = (float**) malloc(lire.taille * sizeof (float*) + 1);
+	float **stick;
 	for (int i=0; i<lire.taille; i++)
 	{
 		stick[i] = (float*) malloc(lire2.taille * sizeof (float) + 1);
