@@ -2,15 +2,17 @@
 #include <stdlib.h>
 #include "sequence.h"
 #include "distance.h"
-
-char nom[20][25];
-float **stick;
+#include "famille.h"
 
 int main(){
 
-	Recherche_fichiers("sequences_ADN");
-	
-	comparaison();
+	SEQUENCE lire, lire2;
+
+	DISTANCE dist = Recherche_fichiers("sequences_ADN");
+	comparaison(&dist, lire, lire2);
+
+	//FAMILLE Fam;
+	//distance_min(dist, &Fam);
 
 	return 0;
 }

@@ -26,7 +26,7 @@ SEQUENCE lire_fichier(char *fichier)
 	FILE *F = fopen(fichier, "r");
 	if (F == NULL)
 	{
-		fprintf(stderr, "Erreur. Impossible d'ouvrir le fichier"); //Message d'erreur
+		fprintf(stderr, "Erreur. Impossible d'ouvrir le fichier\n"); //Message d'erreur
 		exit(1);
 	}
 
@@ -40,6 +40,10 @@ SEQUENCE lire_fichier(char *fichier)
 	seq.numerique = malloc(seq.taille * sizeof(int) + 1);
 	
 	fseek(F,0,SEEK_SET);
+
+	for(int i = 0; i<seq.taille; i++){
+		seq.sequence[i] = 0;
+	}
 
 	int cpt = 0;
 	while((c = fgetc(F)) != EOF)
@@ -107,12 +111,14 @@ float min(float a, float b, float c){
 //d'apres les mesure de performance, utiliser directement des nombres 
 //sans passer par le transforme, accelere de 43% l'execution
 float calcul_recursive_dist(int * v, int * w, int i, int j, float tableau[5][5], float ** stick) {
+	//printf("i: %d | j: %d\n",i,j );
 	if(i<0 || j<0)
 		return 0;
 
 	if(stick[i][j] != 0){
 		return stick[i][j];
 	}
+
 
 	if((i == 0 && j == 0))
 		stick[i][j] = tableau[v[i]][w[j]];
@@ -130,16 +136,26 @@ float calcul_recursive_dist(int * v, int * w, int i, int j, float tableau[5][5],
 	return stick[i][j];
 }
 
-void allocation(SEQUENCE lire, SEQUENCE lire2){
-	float **stick;
-	for (int i=0; i<lire.taille; i++)
-	{
-		stick[i] = (float*) malloc(lire2.taille * sizeof (float) + 1);
-	}
+void allocation(SEQUENCE lire, SEQUENCE lire2, float **stick){
 
-	for(int i=0; i<lire.taille; i++){
-    	for(int j=0; j<lire2.taille; j++){
+	printf("%d\n", lire.taille);
+	printf("%d\n", lire2.taille);
+	stick = (float**) malloc(lire.taille * sizeof (float*) + 1);
+
+	for(int i=0; i<lire.taille; i++)
+	{
+		stick[i] = (float *) malloc(lire2.taille * sizeof (float) + 1);
+		for(int j=0; j<lire2.taille; j++){
     		stick[i][j] = 0;
     	}
-    }
+    	//free(stick[i]);
+	}
+	/*for (int i = 0; i < lire.taille; ++i)
+	{
+		for (int j = 0; j < lire2.taille; ++j)
+		{
+			printf("%f\n", stick[i][j]);
+		}	
+	}*/
+	//free(stick);
 }

@@ -1,58 +1,109 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <dirent.h>
-//#include "famille.h"
-#include "sequence.h"
+#include "famille.h"
 
-char nom[20][25];
 
-/*void machin(char *name)
-{
-    DIR*  D ;
-  
-     D = opendir(name);  // ouverture d'un dossier
-       
-   if(D == NULL)  // si le dossier n'a pas pu etre ouvert
-         exit(1);
-    else
-    printf("Le dossier a été ouvert avec succes !\n");
-   struct dirent* sd ;//declaration d'un pointeur vers la structure dirent
-   sd = readdir(D);  // on lit le premier repertoire du dossier
-  int i = 0;
-  while(sd  != NULL && i < 20)
-  {
-    if(strcmp(sd->d_name, ".") != 0 && strcmp(sd->d_name, "..") != 0){
-      sprintf(nom[i],"%s/%s", name, sd->d_name);
-      i++;
-    }
-    sd = readdir(D);
-  }
-  printf("i = %d\n", i);
-  closedir(D);
+
+void distance_min(DISTANCE dist, FAMILLE *fam){
+	float min = dist.Distance_Finale[0][1];
+	for(int a = 0; a < 20; a++){
+		for(int b = 0; b < 20; b++){
+			if(min > dist.Distance_Finale[a][b] && dist.Distance_Finale[a][b] != 0){
+				min = dist.Distance_Finale[a][b];
+			}
+		}
+	}
+	printf("Le minimum vaut: %.2f\n", min);
+
+	fam->famille = (char **) malloc(20 * sizeof(char *));
+	for(int i = 0; i < 20; i++){
+		fam->famille[i] = (char *) malloc(25 * sizeof(char));
+	}
+	
+	int cpt = 0; int nb_fam = 0; int numero_seq;
+	fam->Dmin = min;
+
+	for(int i = 0; i < 20; i++){
+		for(int j = 0; j < 20; j++){
+			fam->famille[j] = dist.nom[j];
+
+			if(dist.Distance_Finale[i][j] == fam->Dmin){
+				cpt++;
+				printf("--------------------------------------------> %s\n", dist.nom[i]);
+			}
+			if(nb_fam < cpt){
+				nb_fam = cpt;
+				printf("Repetition: %d\n", nb_fam);
+				numero_seq = i;
+				printf("Indice: %d\n", numero_seq);
+			}
+		}
+		cpt = 0;
+	}
+	char *seq = dist.nom[numero_seq];
+	printf("La sequence S est: %s\n", seq);
+	printf("La famille est composée de %d séquences.\n", nb_fam);
 }
-*/
 
-int main()
-{
-  /*machin("sequences_ADN");
-  SEQUENCE lire, lire2;
-  int a, b;
-  float Distance_Finale;
+/*FAMILLE construction(DISTANCE dist, FAMILLE fam){
+	fam = (char **) malloc(20 * sizeof(char *));
+	for(int i = 0; i < 20; i++){
+		fam = (char *) malloc(25 * sizeof(char));
+	}
+	
+	int cpt = 0; int final_cpt = 0; int numero_seq;
+	fam.Dmin = min;
 
-  for(a = 0; a < 20; a++){
-    lire = lire_fichier(nom[a]);
-    lire.sequence[lire.taille] = '\0';
-    printf("%s\n", lire.sequence);
+	for(int i = 0; i < 20; i++){
+		for(int j = 0; j < 20; j++){
+			if(dist.Distance_Finale[i][j] == fam.Dmin){
+				cpt++;
+			}
 
-    for(b = 0; b < 20; b++){
-      lire2 = lire_fichier(nom[b]);
-      lire.sequence[lire.taille] = '\0';
-      printf("haha: %s\n", lire2.sequence);
-      calcul_distances(lire.t)
-      printf("%.2f\n", Distance_Finale);
-    }
-  }
+			if(final_cpt < cpt){
+				final_cpt = cpt;
+				numero_seq = i;
+			}
+		}
+		cpt = 0;
+	}
+	char *seq = dist.nom[numero_seq];
+	printf("%s\n", seq);
+	printf("%d\n", final_cpt);
 
-  return 0;
+	return fam;
+}*/
+
+/*void Seq_S(DISTANCE dist){
+	int cpt = 0; int final_cpt = 0; int numero_seq;
+	float Dmin = distance_min(dist);
+
+	for(int i = 0; i < 20; i++){
+		for(int j = 0; j < 20; j++){
+			if(dist.Distance_Finale[i][j] == Dmin){
+				cpt++;
+			}
+
+			if(final_cpt < cpt){
+				final_cpt = cpt;
+				numero_seq = i;
+			}
+		}
+		cpt = 0;
+	}
+	char *seq = dist.nom[numero_seq];
+	printf("%s\n", seq);
+	printf("%d\n", final_cpt);
+}
+
+void fam(DISTANCE dist){
+	char **tableaurandom;
+	for(int i = 0; i < 20; i++){
+		for(int j = 0; j < 20; j++){
+			if(dist.Distance_Finale[i][j] == Dmin){
+				tableaurandom[i] = dist.nom[j]
+			}
+		}
+	}
 }*/

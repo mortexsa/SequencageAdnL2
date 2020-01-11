@@ -1,13 +1,15 @@
 #ifndef __DISTANCE_H
 #define __DISTANCE_H
 
-struct Distance{
-	int distance;
+#include "sequence.h"
 
+struct Distance{
+	char **nom;
+	float **Distance_Finale;
 };
 typedef struct Distance DISTANCE;
 
-void Recherche_fichiers(char *name);
-void comparaison();
+DISTANCE Recherche_fichiers(char *name);
+void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2);
 
 #endif
