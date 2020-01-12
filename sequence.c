@@ -111,7 +111,6 @@ float min(float a, float b, float c){
 //d'apres les mesure de performance, utiliser directement des nombres 
 //sans passer par le transforme, accelere de 43% l'execution
 float calcul_recursive_dist(int * v, int * w, int i, int j, float tableau[5][5], float ** stick) {
-	//printf("i: %d | j: %d\n",i,j );
 	if(i<0 || j<0)
 		return 0;
 

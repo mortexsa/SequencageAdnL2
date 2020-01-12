@@ -3,12 +3,13 @@
 #include "distance.h"
 
 struct Famille{
-	char ** famille;
+	char ** sequence;
+	int taille;
 	float Dmin;
 };
 typedef struct Famille FAMILLE;
 
-void distance_min(DISTANCE dist, FAMILLE *fam);
-//FAMILLE construction(DISTANCE dist, FAMILLE fam);
+float dist_min(DISTANCE dist, float mininf);
+int indice(DISTANCE dist, FAMILLE fam, float min);
 
 #endif

@@ -11,7 +11,7 @@ DISTANCE Recherche_fichiers(char *name){
 
 	dist.nom = (char **)malloc(20 * sizeof(char *)+1);
 	for(int j = 0; j < 20; j++){
-		dist.nom[j] = (char *)malloc(25 * sizeof(char)+1);
+		dist.nom[j] = (char *)malloc(24 * sizeof(char)+1);
 	}
 
 	if(D == NULL)
@@ -65,13 +65,14 @@ void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2){
     				stick[i][j] = 0; //Initialisation de toutes les valeures à 0
     			}
 			}
-			
-			dist->Distance_Finale[a][b] = calcul_recursive_dist(lire.numerique, lire2.numerique, lire.taille-1, lire2.taille-1, tableau, stick);
-			printf("La distance finale est: %.2f\n", dist->Distance_Finale[a][b]);
-			compteur++;
+			if(a != b){
+				dist->Distance_Finale[a][b] = calcul_recursive_dist(lire.numerique, lire2.numerique, lire.taille-1, lire2.taille-1, tableau, stick);
+				//printf("La distance finale est: %.2f\n", dist->Distance_Finale[a][b]);
+				compteur++;
+			}
 		}
 	}
 
-	printf("haha: %d\n", compteur);
+	printf("Nous faisons: %d comparaisons.\n", compteur);
 }
 
