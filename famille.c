@@ -4,35 +4,41 @@
 #include "famille.h"
 
 float dist_min(DISTANCE dist, float mininf){
-	float min = 2;
-
+	float min = 0;
+	int i=0;
+	while(i<20){
+		printf("valeur de dist : %f\n", dist.Distance_Finale[0][i]);
+		printf("valeur de min : %f\n", min);
+		if(dist.Distance_Finale[0][i] > mininf){
+			printf("eyhoh\n");
+			min = dist.Distance_Finale[0][i];
+			break;
+		}
+		i++;
+	}
+	//printf("valeur de min : %d\n", min);
 	for(int a = 0; a < 20; a++){
 		for(int b = a; b < 20; b++){
 			if(a != b){
-				if(min > dist.Distance_Finale[a][b]){
-					mininf = min; 
-					min = dist.Distance_Finale[a][b]; //Nous définissons la distance minimum
-				}
-				else if(mininf > dist.Distance_Finale[a][b] && dist.Distance_Finale[a][b] != min){
-					mininf = dist.Distance_Finale[a][b];
+				if(min > dist.Distance_Finale[a][b] && dist.Distance_Finale[a][b] > mininf){
+					min = dist.Distance_Finale[a][b];
 				}
 			}
 		}
 	}
 
 	printf("Le minimum vaut: %.2f\n", min);
-	printf("Le deuxième min vaut: %.2f\n", mininf);
 
 	return min;
 }
 
-int indice(DISTANCE dist, FAMILLE fam, float min){
+int indice(DISTANCE dist, FAMILLE * fam, float min, int * aUnGroupe){
 	int cpt = 0; int nb_fam = 0; int indice;
 
-	fam.Dmin = min;
+	fam->Dmin = min;
 	for(int i = 0; i < 20; i++){
 		for(int j = 0; j < 20; j++){
-			if(dist.Distance_Finale[i][j] == fam.Dmin){
+			if(dist.Distance_Finale[i][j] == fam->Dmin && aUnGroupe[j] == 0){
 				cpt++;
 				printf("La séquence est: %s\n", dist.nom[j]);
 			}
@@ -44,27 +50,23 @@ int indice(DISTANCE dist, FAMILLE fam, float min){
 		cpt = 0;
 	}
 
-	fam.taille = nb_fam + 1;
+	fam->taille = nb_fam + 1;
 
 	return indice;
 }
-void construction(DISTANCE dist, FAMILLE fam, int indice){
-	
-	fam.sequence = (char **) malloc(fam.taille * sizeof(char *));
-	for(int i = 0; i < fam.taille; i++){
-		fam.sequence[i] = (char *) malloc(24 * sizeof(char));
-	}
 
-	fam.sequence[0] = dist.nom[indice];
+void construction(DISTANCE dist, FAMILLE * fam, int indice, int * aUnGroupe){
+	fam->sequence = (SEQUENCE *) malloc(fam->taille * sizeof(SEQUENCE));
+	fam->sequence[0] = dist.mesSequences[indice];
+	aUnGroupe[indice] = 1;
 	int nigga = 1;
-	for(int i = 0; i < 20; i++){
-		for(int j = 0; j < 20; j++){
-			if(dist.Distance_Finale[i][j] == fam.Dmin){
-				fam.sequence[nigga] = dist.nom[j];
-				printf("La sequence: %s\n", dist.nom[j]);
-				nigga++;
-			}
+	for(int j = 0; j < 20; j++){
+		if(dist.Distance_Finale[indice][j] == fam->Dmin && aUnGroupe[j] == 0){
+			fam->sequence[nigga] = dist.mesSequences[j];
+			aUnGroupe[j] = 1;
+			printf("La sequence: %s\n", dist.mesSequences[j].sequence);
+			nigga++;
 		}
+		
 	}
-
 }

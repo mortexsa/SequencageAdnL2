@@ -39,12 +39,12 @@ DISTANCE Recherche_fichiers(char *name){
 
 
 
-void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2){
+void comparaison(DISTANCE *dist){
 
 	float tableau[5][5] = {{0, 2, 1, 2, 1.5}, {2, 0, 2, 1, 1.5}, {1, 2, 0, 2, 1.5}, {2, 1, 2, 0, 1.5}, {1.5, 1.5, 1.5, 1.5, 0}};
-	
+	SEQUENCE lire, lire2;
 	float **stick;
-
+	dist->mesSequences = (SEQUENCE *) malloc(20 * sizeof(SEQUENCE));
 	dist->Distance_Finale = (float **) malloc(20 * sizeof(float *));
 	for(int i = 0; i < 20; i++){
 		dist->Distance_Finale[i] = (float *) malloc(20 * sizeof(float));
@@ -53,7 +53,7 @@ void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2){
 	for(a = 0; a < 20; a++){
 
 		lire = lire_fichier(dist->nom[a]);
-
+		dist->mesSequences[a] = lire;
 		for(b = a; b < 20; b++){
 			lire2 = lire_fichier(dist->nom[b]);
 			stick = (float**) malloc(lire.taille * sizeof (float*) + 1);
@@ -65,7 +65,10 @@ void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2){
     				stick[i][j] = 0; //Initialisation de toutes les valeures à 0
     			}
 			}
-			if(a != b){
+			if(a == b){
+				dist->Distance_Finale[a][b] = 0;
+			}
+			else {
 				dist->Distance_Finale[a][b] = calcul_recursive_dist(lire.numerique, lire2.numerique, lire.taille-1, lire2.taille-1, tableau, stick);
 				//printf("La distance finale est: %.2f\n", dist->Distance_Finale[a][b]);
 				compteur++;

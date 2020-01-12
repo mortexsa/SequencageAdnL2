@@ -54,6 +54,7 @@ SEQUENCE lire_fichier(char *fichier)
 			cpt++; //Lecture des caractères
 		}
 	}
+	seq.sequence[cpt] = '\0';
 
 	fclose(F);
 	return seq;

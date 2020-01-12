@@ -4,12 +4,13 @@
 #include "sequence.h"
 
 struct Distance{
+	SEQUENCE * mesSequences;
 	char **nom;
 	float **Distance_Finale;
 };
 typedef struct Distance DISTANCE;
 
 DISTANCE Recherche_fichiers(char *name);
-void comparaison(DISTANCE *dist, SEQUENCE lire, SEQUENCE lire2);
+void comparaison(DISTANCE *dist);
 
 #endif
