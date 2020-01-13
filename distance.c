@@ -72,10 +72,32 @@ void comparaison(DISTANCE *dist){
 				//printf("La distance finale est: %.2f\n", dist->Distance_Finale[a][b]);
 				compteur++;
 			}
+			for(int i=0;i<lire.taille;i++){
+				free(stick[i]);
+			}
+			free(stick);
 		}
 	}
 
 	printf("Après calcul, nous avons fait: %d comparaisons.\n", compteur);
+	printf("Les caractéristiques de nos familles sont ci-dessous.\n");
+	printf("\n");
 
+}
+
+void freeDistance(DISTANCE d){
+	for (int i = 0; i < 20; i++)
+	{
+		free(d.mesSequences[i].sequence);
+		free(d.mesSequences[i].numerique);
+	}
+	for(int i=0;i<20;i++){
+		free(d.nom[i]);
+	}
+	for(int i=0;i<20;i++){
+		free(d.Distance_Finale[i]);
+	}
+	free(d.Distance_Finale);
+	free(d.nom);
 }
 

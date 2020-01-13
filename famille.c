@@ -91,7 +91,7 @@ LISTFAMILLE touteLesSequences(DISTANCE dist){
 			compteurFamille++;
 			break;
 		}
-		//indice(DISTANCE dist, FAMILLE * fam, float min, int * aUnGroupe)
+
 		indicee = indice(dist, &lfamille.famille[compteurFamille], minInf, aUnGroupe);
 		construction(dist, &lfamille.famille[compteurFamille], indicee, aUnGroupe);
 		printf("Sequence S : %s\n", lfamille.famille[compteurFamille].sequence[0].sequence);
@@ -101,6 +101,7 @@ LISTFAMILLE touteLesSequences(DISTANCE dist){
 		}
 		compteurFamille++;
 		printf("\nNombre de familles : %d\n", compteurFamille);
+		printf("\n");
 	}
 	lfamille.taille = compteurFamille;
 	return lfamille;

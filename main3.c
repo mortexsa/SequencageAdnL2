@@ -13,17 +13,17 @@ int main(){
 	
 	LISTFAMILLE lfamille = touteLesSequences(dist);
 	
-	printf("\n\n\n");
+	printf("\n");
 	printf("Partie 3 :\n");
-	printf("\n\n\n");
-	printf("Famille 0 :\n");
 	ALLSEQUENCECONSENSUS s = allseqConsensus(lfamille);
 	for(int i=0;i<lfamille.taille;i++){
+		printf("\n");
+		printf("Famille %d:\n", i);
 		for(int j=0;j<lfamille.famille[i].taille;j++){
 			printf("sequence %d : %s\n",j, lfamille.famille[i].sequence[j].sequence);
 		}
 		printf("Sequence consensus: %s\n", s.seq[i].sequence);
-		printf("\n\n");
 	}
+	freeDistance(dist);
 	return 0;
 }
