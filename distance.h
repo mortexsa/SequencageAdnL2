@@ -12,5 +12,6 @@ typedef struct Distance DISTANCE;
 
 DISTANCE Recherche_fichiers(char *name);
 void comparaison(DISTANCE *dist);
+void freeDistance(DISTANCE d);
 
 #endif
