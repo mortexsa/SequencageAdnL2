@@ -17,16 +17,13 @@ int main(){
 	printf("Partie 3 :\n");
 	printf("\n\n\n");
 	printf("Famille 0 :\n");
-	for(int j=0;j<lfamille.famille[0].taille;j++){
-			printf("sequence %d : %s\n",j, lfamille.famille[0].sequence[j].sequence);
+	ALLSEQUENCECONSENSUS s = allseqConsensus(lfamille);
+	for(int i=0;i<lfamille.taille;i++){
+		for(int j=0;j<lfamille.famille[i].taille;j++){
+			printf("sequence %d : %s\n",j, lfamille.famille[i].sequence[j].sequence);
 		}
-	SEQUENCE s = seqConsensus(lfamille.famille[0]);
-	for (int i = 0; i < s.taille; ++i)
-	{
-		printf("%d", s.numerique[i]);
+		printf("Sequence consensus: %s\n", s.seq[i].sequence);
+		printf("\n\n");
 	}
-	printf("\n");
-	printf("Sequence consensus: %s\n", s.sequence);
-
 	return 0;
 }

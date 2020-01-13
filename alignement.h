@@ -3,13 +3,14 @@
 #include "famille.h"
 
 
-struct Alignement{
-	FAMILLE famille;
-	SEQUENCE consensus;
+struct AllSequenceConsensus{
+	SEQUENCE * seq;
+	int taille;
 };
-typedef struct Alignement ALIGNEMENT;
+typedef struct AllSequenceConsensus ALLSEQUENCECONSENSUS;
 
 char transformeInverse(int t);
 SEQUENCE seqConsensus(FAMILLE fam);
+ALLSEQUENCECONSENSUS allseqConsensus(LISTFAMILLE lfamille);
 
 #endif

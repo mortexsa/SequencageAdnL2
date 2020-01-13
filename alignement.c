@@ -50,3 +50,13 @@ SEQUENCE seqConsensus(FAMILLE fam){
 	}
 	return consensus;
 }
+
+ALLSEQUENCECONSENSUS allseqConsensus(LISTFAMILLE lfamille){
+	ALLSEQUENCECONSENSUS asc;
+	asc.seq = (SEQUENCE *) malloc(lfamille.taille * sizeof(SEQUENCE));
+	for(int i=0; i<lfamille.taille; i++){
+		asc.seq[i] = seqConsensus(lfamille.famille[i]);
+	}
+	asc.taille = lfamille.taille;
+	return asc;
+}
