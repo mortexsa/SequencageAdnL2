@@ -18,7 +18,7 @@ int main(){
 		}
 		printf("\n");
 	}*/
-	FAMILLE Fam;
+	/*FAMILLE Fam;
 	float mininf = 0;
 
 	float min = dist_min(dist, mininf);
@@ -31,11 +31,15 @@ int main(){
 	for (int i = 0; i < Fam.taille; i++)
 	{
 		printf("%s\n", Fam.sequence[i].sequence);
+	}*/
+	LISTFAMILLE lfamille = touteLesSequences(dist);
+	printf("lfamille.taille : %d\n", lfamille.taille);
+	for(int i = 0; i<lfamille.taille;i++){
+		printf("Famille %d :\n", i);
+		for(int j=0;j<lfamille.famille[i].taille;j++){
+			printf("sequence %d : %s\n",j, lfamille.famille[i].sequence[j].sequence);
+		}
+		
 	}
-	for (int i = 0; i < 20; ++i)
-	{
-		printf(":%d:", groupe[i]);;
-	}
-
 	return 0;
 }
