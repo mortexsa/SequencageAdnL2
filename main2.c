@@ -19,5 +19,7 @@ int main(){
 		}
 		
 	}
+	freeDistance(dist);
+	freeListFamille(lfamille);
 	return 0;
 }

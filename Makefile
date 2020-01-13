@@ -1,14 +1,20 @@
-run: partie3
-	./partie3
+partie1: part1
+	./part1
 
-partie1: sequence.o distance.o main1.o 
-	gcc -o partie1 sequence.o distance.o main1.o
+partie2: part2
+	./part2
 
-partie2: sequence.o distance.o famille.o main2.o 
-	gcc -o partie2 sequence.o distance.o famille.o main2.o
+partie3: part3
+	./part3
 
-partie3: sequence.o distance.o famille.o alignement.o main3.o
-	gcc -o partie3 sequence.o distance.o famille.o alignement.o main3.o
+part1: sequence.o distance.o main1.o 
+	gcc -o part1 sequence.o distance.o main1.o
+
+part2: sequence.o distance.o famille.o main2.o 
+	gcc -o part2 sequence.o distance.o famille.o main2.o
+
+part3: sequence.o distance.o famille.o alignement.o main3.o
+	gcc -o part3 sequence.o distance.o famille.o alignement.o main3.o
 
 sequence.o: sequence.c
 	gcc -o sequence.o -c sequence.c -Wall
@@ -33,6 +39,6 @@ main3.o: main3.c sequence.h distance.h famille.h alignement.h
 
 clean:
 	rm -rf *.o
-	rm -rf partie1
-	rm -rf partie2
-	rm -rf partie3
+	rm -rf part1
+	rm -rf part2
+	rm -rf part3

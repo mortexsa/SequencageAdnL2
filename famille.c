@@ -106,3 +106,7 @@ LISTFAMILLE touteLesSequences(DISTANCE dist){
 	lfamille.taille = compteurFamille;
 	return lfamille;
 }
+
+void freeListFamille(LISTFAMILLE lf){
+	free(lf.famille);
+}

@@ -25,5 +25,6 @@ int main(){
 		printf("Sequence consensus: %s\n", s.seq[i].sequence);
 	}
 	freeDistance(dist);
+	freeListFamille(lfamille);
 	return 0;
 }
