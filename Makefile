@@ -31,4 +31,8 @@ main2.o: main2.c sequence.h distance.h famille.h
 main3.o: main3.c sequence.h distance.h famille.h alignement.h
 	gcc -o main3.o -c main3.c -Wall
 
-clean: rm -rf *.o
+clean:
+	rm -rf *.o
+	rm -rf partie1
+	rm -rf partie2
+	rm -rf partie3
