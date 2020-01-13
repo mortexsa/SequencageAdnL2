@@ -4,7 +4,7 @@
 #include "sequence.h"
 
 struct Distance{
-	SEQUENCE * mesSequences;
+	SEQUENCE *mesSequences;
 	char **nom;
 	float **Distance_Finale;
 };

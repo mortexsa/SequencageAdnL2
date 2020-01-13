@@ -4,7 +4,7 @@
 #include "sequence.h"
 #include <dirent.h>
 
-int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouvé
+int transforme(char t){ //Fonction pour renvoyer une valeur selon le char trouvé pour la distance 2
 	if(t == 'A')
 		return 0;
 	if(t == 'C')
@@ -60,7 +60,7 @@ SEQUENCE lire_fichier(char *fichier)
 	return seq;
 }
 
-int valeur(SEQUENCE truc, int cpt){ //Fonction pour renvoyer une valeur selon le char trouvé
+int valeur(SEQUENCE truc, int cpt){ //Fonction pour renvoyer une valeur selon le char trouvé pour la distance 1
 	if(truc.sequence[cpt] == 'A')
 		return 0;
 	if(truc.sequence[cpt] == 'C')
@@ -73,7 +73,7 @@ int valeur(SEQUENCE truc, int cpt){ //Fonction pour renvoyer une valeur selon le
 		return 4;
 }
 
-void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
+void calcul_distances(SEQUENCE lire, SEQUENCE lire2) //Distance 1 (Calcul des distances de manière standart)
 {
 	int tableau[4][4] = {{0, 2, 1, 2}, {2, 0, 2, 1}, {1, 2, 0, 2}, {2, 1, 2, 0}}; //Tableau stockant les valeurs possibles de distances
 
@@ -98,7 +98,7 @@ void calcul_distances(SEQUENCE lire, SEQUENCE lire2)
 
 }
 
-float min(float a, float b, float c){
+float min(float a, float b, float c){ //Calcul du min
 	if(a==b && a==c)
 		return a;
 	if(a<b && a<c)
@@ -134,28 +134,4 @@ float calcul_recursive_dist(int * v, int * w, int i, int j, float tableau[5][5],
 				);
 	}
 	return stick[i][j];
-}
-
-void allocation(SEQUENCE lire, SEQUENCE lire2, float **stick){
-
-	printf("%d\n", lire.taille);
-	printf("%d\n", lire2.taille);
-	stick = (float**) malloc(lire.taille * sizeof (float*) + 1);
-
-	for(int i=0; i<lire.taille; i++)
-	{
-		stick[i] = (float *) malloc(lire2.taille * sizeof (float) + 1);
-		for(int j=0; j<lire2.taille; j++){
-    		stick[i][j] = 0;
-    	}
-    	//free(stick[i]);
-	}
-	/*for (int i = 0; i < lire.taille; ++i)
-	{
-		for (int j = 0; j < lire2.taille; ++j)
-		{
-			printf("%f\n", stick[i][j]);
-		}	
-	}*/
-	//free(stick);
 }

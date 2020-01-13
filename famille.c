@@ -5,7 +5,6 @@
 
 float dist_min(DISTANCE dist, float mininf, int * aUnGroupe){
 	float min = 10000;
-	int i=0;
 	//printf("valeur de min : %d\n", min);
 	for(int a = 0; a < 20; a++){
 		for(int b = a; b < 20; b++){
@@ -30,7 +29,7 @@ int indice(DISTANCE dist, FAMILLE * fam, float min, int * aUnGroupe){
 		for(int j = 0; j < 20; j++){
 			if(dist.Distance_Finale[i][j] == fam->Dmin && aUnGroupe[j] == 0 && aUnGroupe[i] == 0){
 				cpt++;
-				printf("La séquence est: %s\n", dist.nom[j]);
+				printf("La famille contient: %s\n", dist.nom[j]);
 			}
 			if(nb_fam < cpt){
 				nb_fam = cpt;
@@ -49,13 +48,13 @@ void construction(DISTANCE dist, FAMILLE * fam, int indice, int * aUnGroupe){
 	fam->sequence = (SEQUENCE *) malloc(fam->taille * sizeof(SEQUENCE));
 	fam->sequence[0] = dist.mesSequences[indice];
 	aUnGroupe[indice] = 1;
-	int nigga = 1;
+	int add = 1;
 	for(int j = 0; j < 20; j++){
 		if(dist.Distance_Finale[indice][j] == fam->Dmin && aUnGroupe[j] == 0){
-			fam->sequence[nigga] = dist.mesSequences[j];
+			fam->sequence[add] = dist.mesSequences[j];
 			aUnGroupe[j] = 1;
-			printf("La sequence: %s\n", dist.mesSequences[j].sequence);
-			nigga++;
+			printf("Sa sequence respective est: %s\n", dist.mesSequences[j].sequence);
+			add++;
 		}
 		
 	}
@@ -78,9 +77,7 @@ LISTFAMILLE touteLesSequences(DISTANCE dist){
 	float minInf = 0;
 	int compteurFamille = 0;
 	int indicee = 0;
-	int autre = 0;
-	int compteautre = 0;
-	while(!estCompler(aUnGroupe)){
+		while(!estCompler(aUnGroupe)){
 		minInf = dist_min(dist, minInf, aUnGroupe);
 		if(minInf == 10000){
 			lfamille.famille[compteurFamille].sequence = (SEQUENCE *) malloc(1 * sizeof(SEQUENCE));
@@ -97,13 +94,13 @@ LISTFAMILLE touteLesSequences(DISTANCE dist){
 		//indice(DISTANCE dist, FAMILLE * fam, float min, int * aUnGroupe)
 		indicee = indice(dist, &lfamille.famille[compteurFamille], minInf, aUnGroupe);
 		construction(dist, &lfamille.famille[compteurFamille], indicee, aUnGroupe);
-		printf("lfamille.famille.seq : %s\n", lfamille.famille[compteurFamille].sequence[0].sequence);
+		printf("Sequence S : %s\n", lfamille.famille[compteurFamille].sequence[0].sequence);
 		for (int i = 0; i < 20; ++i)
 		{
-			printf(":%d:", aUnGroupe[i]);
+			printf("|%d|", aUnGroupe[i]);
 		}
 		compteurFamille++;
-		printf("compteurFamille : %d\n", compteurFamille);
+		printf("\nNombre de familles : %d\n", compteurFamille);
 	}
 	lfamille.taille = compteurFamille;
 	return lfamille;

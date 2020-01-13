@@ -17,7 +17,7 @@ DISTANCE Recherche_fichiers(char *name){
 	if(D == NULL)
 		exit(1);
 	else
-		printf("Le dossier à bien été ouvert.\n");
+		printf("Ouverture du dossier. Le dossier à bien été ouvert.\n");
 
 	struct dirent *sd;
 	sd = readdir(D);
@@ -31,7 +31,6 @@ DISTANCE Recherche_fichiers(char *name){
 		sd = readdir(D);
 	}
 
-	printf("i = %d\n", i);
 	closedir(D);
 
 	return dist;
@@ -76,6 +75,7 @@ void comparaison(DISTANCE *dist){
 		}
 	}
 
-	printf("Nous faisons: %d comparaisons.\n", compteur);
+	printf("Après calcul, nous avons fait: %d comparaisons.\n", compteur);
+
 }
 
